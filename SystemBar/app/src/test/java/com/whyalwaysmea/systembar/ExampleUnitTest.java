@@ -1,4 +1,4 @@
-package com.whyalwasymea.systembar;
+package com.whyalwaysmea.systembar;
 
 import org.junit.Test;
 

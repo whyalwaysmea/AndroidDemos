@@ -6,5 +6,11 @@
     <item
         android:id="@+id/color2"
         android:title="着色模式2"/>
+    <item
+        android:id="@+id/picture1"
+        android:title="图片模式1"/>
 
+    <item
+        android:id="@+id/picture2"
+        android:title="图片模式2"/>
 </menu>

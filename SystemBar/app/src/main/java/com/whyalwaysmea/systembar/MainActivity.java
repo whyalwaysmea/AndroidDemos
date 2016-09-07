@@ -1,4 +1,4 @@
-package com.whyalwasymea.systembar;
+package com.whyalwaysmea.systembar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.whyalwasymea.systembar.color.ColorActivity1;
+import com.whyalwaysmea.systembar.color.ColorActivity1;
+import com.whyalwaysmea.systembar.color.ColorActivity2;
+import com.whyalwaysmea.systembar.picture.PictureActivity1;
+import com.whyalwaysmea.systembar.picture.PictureActivity2;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -54,6 +57,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.color1:
                 openActivity(ColorActivity1.class);
                 break;
+            case R.id.color2:
+                openActivity(ColorActivity2.class);
+                break;
+            case R.id.picture1:
+                openActivity(PictureActivity1.class);
+                break;
+            case R.id.picture2:
+                openActivity(PictureActivity2.class);
+                break;
         }
         return false;
     }
@@ -63,6 +75,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.color1:
                 openActivity(ColorActivity1.class);
+                break;
+            case R.id.color2:
+                openActivity(ColorActivity2.class);
+                break;
+            case R.id.picture1:
+                openActivity(PictureActivity1.class);
+                break;
+            case R.id.picture2:
+                openActivity(PictureActivity2.class);
                 break;
         }
         return true;

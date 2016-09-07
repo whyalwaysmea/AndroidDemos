@@ -1,11 +1,11 @@
-package com.whyalwasymea.systembar.color;
+package com.whyalwaysmea.systembar.color;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.whyalwasymea.systembar.R;
+import com.whyalwaysmea.systembar.R;
 
 /**
  * 不使用第三方工具类
