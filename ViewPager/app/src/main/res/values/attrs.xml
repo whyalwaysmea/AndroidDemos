@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Bar">
+		<attr name="ripple_color" format="color|reference"/>
+		<attr name="checked_color" format="color|reference"/>
+		<attr name="normal_color" format="color|reference"/>
+		<attr name="android:textSize" />
+		<attr name="checked_percent" format="fraction"/>
+		<attr name="tab_padding" format="dimension|reference"/>
+    </declare-styleable>
+</resources>
