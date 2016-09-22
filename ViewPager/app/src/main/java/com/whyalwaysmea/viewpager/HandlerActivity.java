@@ -17,7 +17,9 @@ public class HandlerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handler);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mViewPager.setAdapter(new MyAdapter(this));
+        mViewPager.setAdapter(new MyAdapter2(this));
+        mCurrentPage = 5 * 10;
+        mViewPager.setCurrentItem(mCurrentPage);
         mHandler.sendEmptyMessageDelayed(CHANGE_PAGE, 5000);
     }
 
@@ -25,11 +27,16 @@ public class HandlerActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             mCurrentPage++;
-            if(mCurrentPage == 6) {
-                mCurrentPage = 0;
-            }
             mViewPager.setCurrentItem(mCurrentPage);
             mHandler.sendEmptyMessageDelayed(CHANGE_PAGE, 5000);
         }
     };
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeMessages(CHANGE_PAGE);
+        mHandler = null;
+    }
 }
