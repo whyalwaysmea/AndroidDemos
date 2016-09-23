@@ -39,5 +39,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button circularButton = (Button) findViewById(R.id.button);
+        circularButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CircularButtonActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

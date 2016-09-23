@@ -16,17 +16,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FirstActivity"
-            android:theme="@style/noAnimTheme">
+            android:name=".FirstActivity">
         </activity>
         <activity
             android:name=".SecondActivity"
-            android:parentActivityName=".FirstActivity"
             android:theme="@style/noAnimTheme">
         </activity>
         <activity android:name=".CircularAnimActivity">
         </activity>
         <activity android:name=".MaterialAnimActivity">
+        </activity>
+        <activity android:name=".CircularButtonActivity">
         </activity>
     </application>
 

@@ -13,15 +13,15 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
         View v = findViewById(R.id.touch_me_view);
-        v.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent i = new Intent(FirstActivity.this, SecondActivity.class);
-                i.putExtra("x", (int)event.getX());
-                i.putExtra("y", (int)event.getY());
-                startActivity(i);
-                return false;
-            }
-        });
+v.setOnTouchListener(new View.OnTouchListener() {
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        Intent i = new Intent(FirstActivity.this, SecondActivity.class);
+        i.putExtra("x", (int)event.getX());
+        i.putExtra("y", (int)event.getY());
+        startActivity(i);
+        return false;
+    }
+});
     }
 }

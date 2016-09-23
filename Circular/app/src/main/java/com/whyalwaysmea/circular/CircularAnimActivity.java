@@ -32,6 +32,8 @@ public class CircularAnimActivity extends AppCompatActivity implements View.OnCl
         if(v.getId() == R.id.floatBtn) {
             secondView.setVisibility(View.VISIBLE);
             int centerX = (v.getLeft() + v.getRight()) / 2;
+            System.out.println("left : " + v.getLeft());
+            System.out.println("right : " + v.getRight());
             int centerY = (v.getTop() + v.getBottom()) / 2;
             // Math.hypot(x,y):  返回sqrt(x2 +y2)
             float finalRadius = (float) Math.hypot((double) centerX, (double) centerY);

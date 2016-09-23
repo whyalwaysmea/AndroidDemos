@@ -31,7 +31,7 @@ public class SecondActivity extends AppCompatActivity {
                     Animator animator = createRevealAnimator(false, mX, mY);
                     animator.start();
                 }
-                content.setVisibility(View.VISIBLE);
+//                content.setVisibility(View.VISIBLE);
 
             }
         });
