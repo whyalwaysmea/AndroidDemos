@@ -8,16 +8,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".HandlerActivity">
+        <activity android:name=".banner.HandlerActivity">
         </activity>
-        <activity android:name=".RxJavaActivity">
+        <activity android:name=".banner.RxJavaActivity">
+        </activity>
+        <activity android:name=".banner.BannerActivity">
+        </activity>
+        <activity android:name=".lazyload.LazyLoadActivity">
         </activity>
     </application>
 

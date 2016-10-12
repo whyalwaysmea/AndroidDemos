@@ -1,4 +1,4 @@
-package com.whyalwaysmea.viewpager;
+package com.whyalwaysmea.viewpager.banner;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -7,23 +7,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.whyalwaysmea.viewpager.R;
+
 /**
  * Created by Long
  * on 2016/9/21.
  */
 
-public class MyAdapter2 extends PagerAdapter{
+public class MyAdapter extends PagerAdapter{
 
-    private int[] imgId = {R.drawable.a1, R.drawable.a2, R.drawable.a3, R.drawable.a4, R.drawable.a5};
+    private int[] imgId;
     private Context mContext;
 
-    public MyAdapter2(Context context) {
+    public MyAdapter(Context context, int[] imgs) {
         this.mContext = context;
+        this.imgId = imgs;
     }
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;
+        return imgId.length;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class MyAdapter2 extends PagerAdapter{
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.img);
-        imageView.setBackgroundResource(imgId[position % imgId.length]);
+        imageView.setBackgroundResource(imgId[position]);
         container.addView(view);
         return view;
     }

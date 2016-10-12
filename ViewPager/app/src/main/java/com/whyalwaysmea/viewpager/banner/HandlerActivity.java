@@ -1,10 +1,12 @@
-package com.whyalwaysmea.viewpager;
+package com.whyalwaysmea.viewpager.banner;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.whyalwaysmea.viewpager.R;
 
 public class HandlerActivity extends AppCompatActivity {
 

@@ -1,8 +1,10 @@
-package com.whyalwaysmea.viewpager;
+package com.whyalwaysmea.viewpager.banner;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.whyalwaysmea.viewpager.R;
 
 import java.util.concurrent.TimeUnit;
 

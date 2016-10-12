@@ -1,4 +1,4 @@
-package com.whyalwaysmea.viewpager;
+package com.whyalwaysmea.viewpager.banner;
 
 
 import android.content.Intent;
@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import com.whyalwaysmea.viewpager.R;
+
+public class BannerActivity extends AppCompatActivity {
 
 
 	@Override
@@ -20,14 +22,14 @@ public class MainActivity extends AppCompatActivity {
 		handlerBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(MainActivity.this, HandlerActivity.class);
+				Intent intent = new Intent(BannerActivity.this, HandlerActivity.class);
 				startActivity(intent);
 			}
 		});
 		rxJavaBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(MainActivity.this, RxJavaActivity.class);
+				Intent intent = new Intent(BannerActivity.this, RxJavaActivity.class);
 				startActivity(intent);
 			}
 		});
