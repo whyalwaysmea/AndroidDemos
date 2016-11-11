@@ -3,12 +3,7 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="noAnimTheme" parent="AppTheme">
-        <item name="android:windowAnimationStyle">@null</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
+
 
     <style name="Button" parent="android:Widget.Material.Button.Borderless">
 

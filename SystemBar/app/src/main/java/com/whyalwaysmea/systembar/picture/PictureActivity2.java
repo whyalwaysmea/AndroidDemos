@@ -2,11 +2,11 @@ package com.whyalwaysmea.systembar.picture;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.jaeger.library.StatusBarUtil;
 import com.whyalwaysmea.systembar.R;
@@ -24,11 +24,13 @@ public class PictureActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture2);
         StatusBarUtil.setTransparent(this);
-        CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
-        materialCollapsingForKitkat(toolbarLayout);
+        materialCollapsingForKitkat();
+
+        ImageView img = (ImageView) findViewById(R.id.iv_book_bg);
+        img.setBackgroundResource(R.drawable.bg);
     }
 
-    private void materialCollapsingForKitkat(final CollapsingToolbarLayout toolbarLayout) {
+    private void materialCollapsingForKitkat() {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
 
             // 设置Toolbar对顶部的距离
