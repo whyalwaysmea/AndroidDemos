@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import com.whyalwaysmea.ipc.bundle.BundleFirstActivity;
 import com.whyalwaysmea.ipc.file.FileFirstActivity;
+import com.whyalwaysmea.ipc.messenger.MessengerActivity;
 
 public class MainActivity extends BaseActivity {
 
@@ -27,6 +28,14 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 openActivity(FileFirstActivity.class);
+            }
+        });
+
+        Button messenger = (Button) findViewById(R.id.messenger);
+        messenger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity(MessengerActivity.class);
             }
         });
     }
