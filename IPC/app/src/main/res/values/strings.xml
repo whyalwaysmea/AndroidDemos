@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">IPC</string>
+    <string name="title_activity_book_manager">BookManagerActivity</string>
 </resources>

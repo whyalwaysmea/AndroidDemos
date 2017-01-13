@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.whyalwaysmea.ipc.aidl.BookManagerActivity;
 import com.whyalwaysmea.ipc.bundle.BundleFirstActivity;
 import com.whyalwaysmea.ipc.file.FileFirstActivity;
 import com.whyalwaysmea.ipc.messenger.MessengerActivity;
+import com.whyalwaysmea.ipc.provider.ProviderActivity;
 
 public class MainActivity extends BaseActivity {
 
@@ -38,6 +40,23 @@ public class MainActivity extends BaseActivity {
                 openActivity(MessengerActivity.class);
             }
         });
+
+        Button adil = (Button) findViewById(R.id.adil);
+        adil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity(BookManagerActivity.class);
+            }
+        });
+
+        Button provider = (Button) findViewById(R.id.provider);
+        provider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity(ProviderActivity.class);
+            }
+        });
+
     }
 
 }

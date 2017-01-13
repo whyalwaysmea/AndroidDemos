@@ -33,4 +33,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="使用Messenger"/>
+
+    <Button
+        android:id="@+id/adil"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="aidl"/>
+
+    <Button
+        android:id="@+id/provider"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="provider"/>
 </LinearLayout>

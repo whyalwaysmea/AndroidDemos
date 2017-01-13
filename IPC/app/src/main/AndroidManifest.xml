@@ -67,6 +67,25 @@
 
         <activity android:name=".messenger.MessengerActivity">
         </activity>
+
+        <service
+            android:name=".aidl.BookManagerService"
+            android:process=":remote"/>
+
+        <activity
+            android:name=".aidl.BookManagerActivity"
+            android:label="@string/title_activity_book_manager"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <provider
+            android:name=".provider.BookProvider"
+            android:authorities="com.whyalwaysmea.ipc.provider.BookProvider"
+            android:permission="com.whyalwaysmea.provider"
+            android:process=":provider"/>
+
+        <activity android:name=".provider.ProviderActivity">
+        </activity>
     </application>
 
 </manifest>
