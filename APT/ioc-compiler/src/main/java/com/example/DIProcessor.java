@@ -4,6 +4,7 @@ import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
@@ -37,6 +38,10 @@ public class DIProcessor extends AbstractProcessor {
     private Elements mElementUtils;
     private Messager mMessager;
 
+    private static class TypeUtil {
+        static final ClassName BINDER = ClassName.get("com.whyalwaysmea.ioc_api", "ViewBinder");
+        static final ClassName PROVIDER = ClassName.get("com.whoislcj.appapi", "ViewFinder");
+    }
 
 
     @Override
@@ -62,8 +67,9 @@ public class DIProcessor extends AbstractProcessor {
                 }
                 bindViewMethodSpecBuilder.addStatement(String.format("activity.%s = (%s) activity.findViewById(%s)",item.getSimpleName(),ClassName.get(item.asType()).toString(),diView.value()));
             }
-            TypeSpec typeSpec = TypeSpec.classBuilder("DI" + element.getSimpleName())
+            TypeSpec typeSpec = TypeSpec.classBuilder(element.getSimpleName() + "$$ViewBinder")
                     .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                    .addSuperinterface(ParameterizedTypeName.get(TypeUtil.BINDER, TypeName.get(typeElement.asType())))
                     .addMethod(bindViewMethodSpecBuilder.build())
                     .build();
             JavaFile javaFile = JavaFile.builder(getPackageName(typeElement), typeSpec).build();
