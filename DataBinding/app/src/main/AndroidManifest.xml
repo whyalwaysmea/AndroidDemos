@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.whyalwaysmea.databinding"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.whyalwaysmea.databinding">
 
     <application
         android:allowBackup="true"
@@ -11,11 +11,12 @@
         <activity android:name=".MainActivity">
 
         </activity>
-        <activity android:name=".ListActivity">
+        <activity android:name=".ListActivity"></activity>
+        <activity android:name=".LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
