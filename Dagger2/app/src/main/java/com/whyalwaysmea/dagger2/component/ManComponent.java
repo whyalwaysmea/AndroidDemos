@@ -10,5 +10,6 @@ import dagger.Component;
  */
 @Component(modules = CarModule.class)
 public interface ManComponent {
-    void inject(ManActivity mainActivity);
+    void inject(ManActivity manActivity);
+//    Car car();
 }

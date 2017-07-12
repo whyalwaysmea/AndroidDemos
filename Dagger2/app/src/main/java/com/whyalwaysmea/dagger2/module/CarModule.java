@@ -1,7 +1,8 @@
 package com.whyalwaysmea.dagger2.module;
 
 import com.whyalwaysmea.dagger2.bean.Car;
-import com.whyalwaysmea.dagger2.bean.Engine;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,8 +12,16 @@ import dagger.Provides;
  */
 @Module
 public class CarModule {
+
     @Provides
-    Car carProvide(Engine engine) {
-        return new Car(engine);
+    @Named("red")
+    Car redCarProvider() {
+        return new Car("red");
+    }
+
+    @Provides
+    @Named("blue")
+    Car bludCarProvider() {
+        return new Car("blue");
     }
 }
