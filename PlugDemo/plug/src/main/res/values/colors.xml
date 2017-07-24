@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#4081FF</color>
-    <color name="colorbg">#000000</color>
-    <color name="textview_color">#ffffff</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorbg">#FF0000</color>
+    <color name="textview_color">#00FF00</color>
 </resources>
