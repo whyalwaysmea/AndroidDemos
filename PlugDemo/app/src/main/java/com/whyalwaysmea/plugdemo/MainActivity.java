@@ -1,15 +1,19 @@
 package com.whyalwaysmea.plugdemo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.whyalwaysmea.plug.IShowToast;
@@ -29,10 +33,13 @@ public class MainActivity extends AppCompatActivity {
     private String mDexPath;
     private Resources mPlugResources;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final LinearLayout mainLayout = (LinearLayout) findViewById(R.id.main_layout);
 
         File dexOutputDir = getDir("dex1", 0);
         mDexPath = Environment.getExternalStorageDirectory().toString() + "/wtp/" + "plug.apk";
@@ -54,9 +61,19 @@ public class MainActivity extends AppCompatActivity {
 
                 Drawable plugDrawable = getPlugDrawable(R.drawable.icon_avator);
                 avator.setBackgroundDrawable(plugDrawable);
+
+                View view = getView();
+                mainLayout.addView(view);
             }
         });
 
+        avator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LayoutActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getCodeByInterface() {
@@ -106,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         Resources superRes = super.getResources();
         mPlugResources = new Resources(assetManager, superRes.getDisplayMetrics(),
                 superRes.getConfiguration());
-
+        ResourcesManager.resources = mPlugResources;
         return mPlugResources;
     }
 
@@ -141,6 +158,13 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public View getView() {
+        // 加载View
+        XmlResourceParser layoutParser = mPlugResources.getLayout(mPlugResources.getIdentifier("activity_main", "layout", PLUG_NAME));
+        View bundleView  = LayoutInflater.from(this).inflate(layoutParser, null);
+        return bundleView;
     }
 
 }
