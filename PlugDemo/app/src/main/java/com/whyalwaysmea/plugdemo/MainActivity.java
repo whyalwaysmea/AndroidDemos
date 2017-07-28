@@ -2,15 +2,10 @@ package com.whyalwaysmea.plugdemo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,20 +13,13 @@ import android.widget.TextView;
 
 import com.whyalwaysmea.plug.IShowToast;
 
-import java.io.File;
 import java.lang.reflect.Method;
 
-import dalvik.system.DexClassLoader;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private static final String PLUG_NAME = "com.whyalwaysmea.plug";
-    private static final String COLOR = "color";
-    private static final String DRAWABLE = "drawable";
-    private DexClassLoader mLoader;
-    private String mDexPath;
-    private Resources mPlugResources;
 
 
     @Override
@@ -39,11 +27,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final LinearLayout mainLayout = (LinearLayout) findViewById(R.id.main_layout);
+        PluginManager.getInstance().install(this, PluginCons.DexPath);
 
-        File dexOutputDir = getDir("dex1", 0);
-        mDexPath = Environment.getExternalStorageDirectory().toString() + "/wtp/" + "plug.apk";
-        mLoader = new DexClassLoader(mDexPath, dexOutputDir.getAbsolutePath(), null, getClassLoader());
+        final LinearLayout mainLayout = (LinearLayout) findViewById(R.id.main_layout);
 
         final ImageView avator = (ImageView) findViewById(R.id.iv_avator);
         avator.setBackgroundDrawable(getResources().getDrawable(R.drawable.icon_avator));
@@ -52,17 +38,16 @@ public class MainActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                getCodeByInterface();
-                int textviewColor = getColor("textview_color");
-                textView.setTextColor(textviewColor);
+                int textColor = PluginManager.getInstance().getColor("textview_color");
+                textView.setTextColor(textColor);
 
-                int colorbg = getColor("colorbg");
-                textView.setBackgroundColor(colorbg);
+                int bgColor = PluginManager.getInstance().getColor("colorbg");
+                textView.setTextColor(bgColor);
 
-                Drawable plugDrawable = getPlugDrawable(R.drawable.icon_avator);
-                avator.setBackgroundDrawable(plugDrawable);
+                Drawable drawable = PluginManager.getInstance().getPlugDrawable(MainActivity.this, R.drawable.icon_avator);
+                avator.setBackgroundDrawable(drawable);
 
-                View view = getView();
+                View view = PluginManager.getInstance().getView(MainActivity.this);
                 mainLayout.addView(view);
             }
         });
@@ -70,16 +55,31 @@ public class MainActivity extends AppCompatActivity {
         avator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LayoutActivity.class);
+                // 隐式启动
+                Intent intent = new Intent("com.whyalwaysmea.plugin.proxy");
+                intent.putExtra(PluginCons.EXTRA_DEX_PATH, PluginCons.DexPath);
+                intent.putExtra(PluginCons.EXTRA_CLASS, "com.whyalwaysmea.plug.MainActivity");
                 startActivity(intent);
             }
         });
+
+
+        findViewById(R.id.hook_start).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        Log.d(TAG, "TextView Class: "  + TextView.class.getClassLoader());
+        Log.d(TAG, "classLoader : "  + getClassLoader());
+        Log.d(TAG, "ClassLoader.getSystemClassLoader : "  + ClassLoader.getSystemClassLoader());
     }
 
     private void getCodeByInterface() {
         // 使用接口的方式
         try {
-            Class clz = mLoader.loadClass("com.whyalwaysmea.plug.ShowToastImpl");
+            Class clz = PluginManager.getInstance().getClassLoader().loadClass("com.whyalwaysmea.plug.ShowToastImpl");
             IShowToast impl = (IShowToast) clz.newInstance();
             impl.showToast(this);
         } catch (Exception e) {
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         // 反射
         Class clazz = null;
         try {
-            clazz = mLoader.loadClass("com.whyalwaysmea.plug.ShowToastImpl");
+            clazz = PluginManager.getInstance().getClassLoader().loadClass("com.whyalwaysmea.plug.ShowToastImpl");
             // 遍历类里所有方法
             Method[] methods = clazz.getDeclaredMethods();
             for (int i = 0; i < methods.length; i++) {
@@ -105,66 +105,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-    }
-
-    private Resources getPlugResources() {
-        // 获取插件包中的资源
-        AssetManager assetManager = null;
-        try {
-            assetManager = AssetManager.class.newInstance();
-            Method addAssetPath = assetManager.getClass().getMethod("addAssetPath", String.class);
-            addAssetPath.invoke(assetManager, mDexPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (assetManager == null) {
-            return null;
-        }
-        Resources superRes = super.getResources();
-        mPlugResources = new Resources(assetManager, superRes.getDisplayMetrics(),
-                superRes.getConfiguration());
-        ResourcesManager.resources = mPlugResources;
-        return mPlugResources;
-    }
-
-    public int getColor(String colorName) {
-        if (mPlugResources == null) {
-            getPlugResources();
-        }
-        try {
-            return mPlugResources.getColor(mPlugResources.getIdentifier(colorName, COLOR, PLUG_NAME));
-
-        } catch (Resources.NotFoundException e) {
-            e.printStackTrace();
-            return -1;
-        }
-    }
-
-    public Drawable getPlugDrawable(int drawableID) {
-        if (mPlugResources == null) {
-            getPlugResources();
-        }
-        try {
-            // 返回的是资源文件名，如register_bg
-            // String imgPath = getResources().getResourceEntryName(R.drawable.register_bg);
-            String resName = getResources().getResourceEntryName(drawableID);
-
-
-            // 获取资源id
-            int drawableId = mPlugResources.getIdentifier(resName, DRAWABLE, PLUG_NAME);
-            return mPlugResources.getDrawable(drawableId);
-
-        } catch (Resources.NotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public View getView() {
-        // 加载View
-        XmlResourceParser layoutParser = mPlugResources.getLayout(mPlugResources.getIdentifier("activity_main", "layout", PLUG_NAME));
-        View bundleView  = LayoutInflater.from(this).inflate(layoutParser, null);
-        return bundleView;
     }
 
 }

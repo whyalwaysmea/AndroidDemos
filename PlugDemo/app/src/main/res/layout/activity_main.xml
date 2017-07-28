@@ -19,6 +19,16 @@
         android:textColor="@color/textview_color"
         android:layout_margin="20dp"/>
 
+    <TextView
+        android:id="@+id/hook_start"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hook Start Activity!"
+        android:background="@color/colorbg"
+        android:textColor="@color/textview_color"
+        android:layout_margin="20dp"/>
+
     <ImageView
         android:id="@+id/iv_avator"
         android:layout_gravity="center_horizontal"
