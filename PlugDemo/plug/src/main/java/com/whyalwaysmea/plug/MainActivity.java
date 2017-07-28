@@ -43,13 +43,13 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: Plugin");
         mButton.setBackgroundColor(Color.parseColor("#556677"));
     }
 
-    public void changeButton() {
+    protected void changeButton() {
         mButton.setBackgroundColor(Color.parseColor("#F79AB5"));
     }
 }

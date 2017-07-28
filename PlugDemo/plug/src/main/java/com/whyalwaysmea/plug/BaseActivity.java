@@ -95,7 +95,7 @@ public class BaseActivity extends Activity {
 
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         if (mFrom == FROM_INTERNAL) {
             super.onResume();
         }

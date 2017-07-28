@@ -12,7 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.whyalwaysmea.plugdemo.hook.PluginInstrumentation;
+import com.whyalwaysmea.plugdemo.hook.HookInstrumentation;
 import com.whyalwaysmea.plugdemo.proxy.ProxyActivity;
 
 import java.io.File;
@@ -145,9 +145,9 @@ public class PluginManager {
             Instrumentation mInstrumentation = (Instrumentation) mInstrumentationField.get(currentActivityThread);
 
             //如果没有注入过，就执行替换
-            if (!(mInstrumentation instanceof PluginInstrumentation)) {
-                PluginInstrumentation pluginInstrumentation = new PluginInstrumentation(mInstrumentation);
-                mInstrumentationField.set(currentActivityThread, pluginInstrumentation);
+            if (!(mInstrumentation instanceof HookInstrumentation)) {
+                HookInstrumentation hookInstrumentation = new HookInstrumentation(mInstrumentation);
+                mInstrumentationField.set(currentActivityThread, hookInstrumentation);
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

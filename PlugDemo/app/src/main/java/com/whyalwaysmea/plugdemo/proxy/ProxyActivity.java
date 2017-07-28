@@ -89,12 +89,12 @@ public class ProxyActivity extends AppCompatActivity {
         super.onResume();
         Method setProxy = null;
         try {
-            setProxy = mLocalClass.getMethod("onResume", new Class[] {  });
+            setProxy = mLocalClass.getDeclaredMethod("onResume", new Class[] {  });
+//            setProxy = mLocalClass.getDeclaredMethod("changeButton", new Class[] {  });
             setProxy.setAccessible(true);
             setProxy.invoke(mInstance, new Object[] {  });
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
