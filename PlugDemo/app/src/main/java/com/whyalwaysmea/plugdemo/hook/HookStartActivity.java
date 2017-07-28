@@ -38,10 +38,10 @@ public class HookStartActivity extends AppCompatActivity {
         Instrumentation mInstrumentation = (Instrumentation) mInstrumentationField.get(currentActivityThread);
 
         // 创建代理对象
-        Instrumentation evilInstrumentation = new HookInstrumentation(mInstrumentation);
+        Instrumentation hookInstrumentation = new HookInstrumentation(mInstrumentation);
 
         // 偷梁换柱
-        mInstrumentationField.set(currentActivityThread, evilInstrumentation);
+        mInstrumentationField.set(currentActivityThread, hookInstrumentation);
     }
 
     @Override
