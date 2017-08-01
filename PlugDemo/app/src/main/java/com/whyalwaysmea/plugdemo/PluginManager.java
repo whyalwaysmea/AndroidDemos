@@ -1,6 +1,5 @@
 package com.whyalwaysmea.plugdemo;
 
-import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -12,12 +11,9 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.whyalwaysmea.plugdemo.hook.HookInstrumentation;
 import com.whyalwaysmea.plugdemo.proxy.ProxyActivity;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import dalvik.system.DexClassLoader;
@@ -128,38 +124,6 @@ public class PluginManager {
         Intent intent = new Intent(context,ProxyActivity.class);
         intent.putExtra("class",className);
         context.startActivity(intent);
-    }
-
-    public void a() {
-        // 先获取到当前的ActivityThread对象
-        Class<?> activityThreadClass = null;
-        try {
-            activityThreadClass = Class.forName("android.app.ActivityThread");
-            Method currentActivityThreadMethod = activityThreadClass.getDeclaredMethod("currentActivityThread");
-            currentActivityThreadMethod.setAccessible(true);
-            Object currentActivityThread = currentActivityThreadMethod.invoke(null);
-
-            // 拿到原始的 mInstrumentation字段
-            Field mInstrumentationField = activityThreadClass.getDeclaredField("mInstrumentation");
-            mInstrumentationField.setAccessible(true);
-            Instrumentation mInstrumentation = (Instrumentation) mInstrumentationField.get(currentActivityThread);
-
-            //如果没有注入过，就执行替换
-            if (!(mInstrumentation instanceof HookInstrumentation)) {
-                HookInstrumentation hookInstrumentation = new HookInstrumentation(mInstrumentation);
-                mInstrumentationField.set(currentActivityThread, hookInstrumentation);
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
     }
 
 

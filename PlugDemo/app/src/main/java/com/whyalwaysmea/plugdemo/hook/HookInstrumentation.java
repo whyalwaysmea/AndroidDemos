@@ -3,11 +3,17 @@ package com.whyalwaysmea.plugdemo.hook;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.whyalwaysmea.plugdemo.PluginCons;
+import com.whyalwaysmea.plugdemo.PluginManager;
+
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
@@ -19,9 +25,36 @@ public class HookInstrumentation extends Instrumentation {
     private static final String TAG = "HookInstrumentation";
 
     private Instrumentation mBase;
+    private Context mContext;
 
     public HookInstrumentation(Instrumentation instrumentation) {
         this.mBase = instrumentation;
+    }
+
+    @Override
+    public Activity newActivity(ClassLoader cl, String className, Intent intent) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        Log.d(TAG, "newActivity: className == " + className);
+        String clazzName = intent.getStringExtra(PluginCons.FLAG_ACTIVITY_CLASS_NAME);
+        if(!TextUtils.isEmpty(clazzName)) {
+            return super.newActivity(PluginManager.getInstance().getClassLoader(), clazzName, intent);
+        } else {
+            return super.newActivity(PluginManager.getInstance().getClassLoader(), className, intent);
+        }
+    }
+
+    @Override
+    public void callActivityOnCreate(Activity activity, Bundle icicle) {
+        if(mContext != null) {
+            Field field = null;
+            try {
+                field =ContextWrapper.class.getDeclaredField("mBase");
+                field.setAccessible(true);
+                field.set(activity, mContext);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        super.callActivityOnCreate(activity, icicle);
     }
 
     public ActivityResult execStartActivity(
@@ -48,5 +81,9 @@ public class HookInstrumentation extends Instrumentation {
             // 某该死的rom修改了  需要手动适配
             throw new RuntimeException("do not support!!! pls adapt it");
         }
+    }
+
+    public void setContext(Context context) {
+        mContext = context;
     }
 }

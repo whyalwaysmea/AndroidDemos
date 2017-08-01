@@ -49,6 +49,7 @@ public class BaseActivity extends Activity {
             intent.setClassName(this, className);
             this.startActivity(intent);
         } else {
+            // 其实启动的还是代理Activity  ProxyActivity
             Intent intent = new Intent(PROXY_VIEW_ACTION);
             intent.putExtra(EXTRA_DEX_PATH, DEX_PATH);
             intent.putExtra(EXTRA_CLASS, className);
