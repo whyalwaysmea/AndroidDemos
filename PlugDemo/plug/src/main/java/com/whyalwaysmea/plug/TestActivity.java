@@ -11,6 +11,8 @@ import android.widget.Button;
 public class TestActivity extends BaseActivity{
 
     private Button mButton;
+    public static final String FLAG_ACTIVITY_CLASS_NAME = "FLAG_ACTIVITY_CLASS_NAME";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +32,8 @@ public class TestActivity extends BaseActivity{
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClassName(TestActivity.this, "com.whyalwaysmea.plug.MainActivity");
+                Intent intent = new Intent(PROXY_VIEW_ACTION);
+                intent.putExtra(FLAG_ACTIVITY_CLASS_NAME, "com.whyalwaysmea.plug.MainActivity");
                 startActivity(intent);
             }
         });

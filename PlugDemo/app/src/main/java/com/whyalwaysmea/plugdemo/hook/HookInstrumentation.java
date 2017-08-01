@@ -79,7 +79,8 @@ public class HookInstrumentation extends Instrumentation {
                     contextThread, token, target, intent, requestCode, options);
         } catch (Exception e) {
             // 某该死的rom修改了  需要手动适配
-            throw new RuntimeException("do not support!!! pls adapt it");
+            e.printStackTrace();
+            throw new RuntimeException("do not support!!!" + e.getMessage());
         }
     }
 
